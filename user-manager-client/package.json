@@ -1,0 +1,27 @@
+{
+  "name": "user-manager-client",
+  "version": "0.0.1",
+  "description": "User Manager Client",
+  "main": "index.js",
+  "author": "Guillermo Lopez",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./**/*.js",
+    "test": "yarn lint && NODE_ENV=test ava ./test/*-test.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nock": "^9.0.14"
+  }
+}
