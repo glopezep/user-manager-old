@@ -1,0 +1,31 @@
+{
+  "name": "user-manager-api",
+  "version": "0.0.1",
+  "description": "User Manager API",
+  "author": "Guillermo Lopez",
+  "license": "MIT",
+  "scripts": {
+    "linklocal": "linklocal",
+    "lint": "eslint *.js",
+    "test": "yarn lint && NODE_ENV=test ava ./test/*-test.js",
+    "users": "NODE_ENV=production micro -p 5000 users.js"
+  },
+  "dependencies": {
+    "micro": "^7.3.3",
+    "microrouter": "^2.2.1",
+    "user-manager-db": "file:../user-manager-db"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "linklocal": "^2.8.1",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4",
+    "test-listen": "^1.0.2"
+  }
+}
