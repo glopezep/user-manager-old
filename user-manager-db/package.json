@@ -1,0 +1,30 @@
+{
+  "name": "user-manager-db",
+  "version": "0.0.1",
+  "description": "User Manager Database",
+  "main": "index.js",
+  "author": "Guillermo Lopez",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./**/*.js",
+    "test": "yarn lint && NODE_ENV=test ava ./test/**/*-test.js",
+    "setup": "NODE_ENV=production node setup.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "mysql2": "^1.3.6",
+    "pg": "^7.0.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.4.2"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "uuid": "^3.1.0"
+  }
+}
