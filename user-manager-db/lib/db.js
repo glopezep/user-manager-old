@@ -135,6 +135,18 @@ class UserManagerDB {
     }
   }
 
+  async authenticate (username, password) {
+    try {
+      const user = await this.getUser(username)
+      if (user.password !== utils.encrypt(password)) {
+        return Promise.resolve(false)
+      }
+      return Promise.resolve(true)
+    } catch (e) {
+      return Promise.resolve(false)
+    }
+  }
+
   async setup (callback) {
     try {
       await models.Group.sync()

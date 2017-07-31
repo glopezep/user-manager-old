@@ -197,3 +197,18 @@ test('Delete user', async t => {
   await t.throws(db.deleteUser(null), /username not supplied/)
   await t.throws(db.deleteUser('foo'), /not found/)
 })
+
+test('Authenticate', async t => {
+  const user = fixtures.getUser()
+  const plainPassword = user.password
+  await db.saveUser(user)
+
+  const success = await db.authenticate(user.username, plainPassword)
+  t.true(success)
+
+  const fail = await db.authenticate(user.username, 'foo')
+  t.false(fail)
+
+  const failure = await db.authenticate('foo', 'bar')
+  t.false(failure)
+})
