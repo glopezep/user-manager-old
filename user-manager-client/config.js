@@ -1,5 +1,6 @@
 module.exports = {
   endpoints: {
-    users: 'api.pawadominicana.net/users'
+    users: 'http://api.pawadominicana.net/users',
+    auth: 'http://api.pawadominicana.net/auth'
   }
 }

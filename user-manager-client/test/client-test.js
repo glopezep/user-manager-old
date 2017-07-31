@@ -5,7 +5,8 @@ import fixtures from './fixtures'
 
 const options = {
   endpoints: {
-    users: 'http://api.pawadominicana.test/users'
+    users: 'http://api.pawadominicana.test/users',
+    auth: 'http://api.pawadominicana.test/auth'
   }
 }
 
@@ -28,6 +29,7 @@ test('Client', t => {
   t.is(typeof client.getUser, 'function', 'Should be a function')
   t.is(typeof client.updateUser, 'function', 'Should be a function')
   t.is(typeof client.deleteUser, 'function', 'Should be a function')
+  t.is(typeof client.authenticate, 'function', 'Should be a function')
 })
 
 test('Save Group', async t => {
@@ -182,4 +184,22 @@ test('Delete user', async t => {
 
   t.is(response.statusCode, 200)
   t.deepEqual(response.body, user)
+})
+
+test('Authenticate', async t => {
+  const user = fixtures.getUser()
+  const client = t.context.client
+  const token = 'xxxx-xxxx-xxxx'
+  const credentials = {
+    username: user.username,
+    password: user.password
+  }
+
+  nock(options.endpoints.auth)
+    .post('/', credentials)
+    .reply(200, token)
+
+  const response = await client.authenticate(user.username, user.password)
+
+  t.deepEqual(response.body, token)
 })

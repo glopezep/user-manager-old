@@ -115,11 +115,22 @@ class Client {
     return Promise.resolve(request(options)).asCallback(callback)
   }
 
-  async deleteUser (id, callback) {
+  deleteUser (id, callback) {
     const options = {
       method: 'DELETE',
       uri: `${this.options.endpoints.users}/${id}`,
       json: true,
+      resolveWithFullResponse: true
+    }
+    return Promise.resolve(request(options)).asCallback(callback)
+  }
+
+  authenticate (username, password, callback) {
+    const options = {
+      method: 'POST',
+      uri: `${this.options.endpoints.auth}`,
+      json: true,
+      body: { username, password },
       resolveWithFullResponse: true
     }
     return Promise.resolve(request(options)).asCallback(callback)
