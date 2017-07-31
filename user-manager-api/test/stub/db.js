@@ -44,6 +44,10 @@ class DbStub {
   deleteUser (id) {
     return Promise.resolve(fixtures.getUser())
   }
+
+  authenticate (username, password) {
+    return Promise.resolve(true)
+  }
 }
 
 module.exports = DbStub
