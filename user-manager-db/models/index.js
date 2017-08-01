@@ -39,8 +39,8 @@ const User = sequelize.define('user', {
   }
 })
 
-Group.hasMany(User)
-User.belongsTo(Group, { foreignKey: { allowNull: true }, onDelete: 'CASCADE' })
+// Group.hasMany(User)
+// User.belongsTo(Group, { foreignKey: { allowNull: true }, onDelete: 'CASCADE' })
 
 module.exports = {
   Group,

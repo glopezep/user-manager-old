@@ -1,12 +1,17 @@
 const Promise = require('bluebird')
-const models = require('../models')
 const utils = require('./utils')
+const models = require('./sequelize')
+const defaults = require('../config')
 
 class UserManagerDB {
+  constructor (options) {
+    this.options = options || defaults
+    this.models = models(this.options)
+  }
   async saveGroup (group, callback) {
     try {
       if (!group) return Promise.reject(new Error('data not supplied'))
-      const created = await models.Group.create(group)
+      const created = await this.models.Group.create(group)
       return Promise.resolve(created).asCallback(callback)
     } catch (e) {
       return Promise.reject(new Error(e)).asCallback(callback)
@@ -16,7 +21,7 @@ class UserManagerDB {
   async getGroup (id, callback) {
     try {
       if (!id) return Promise.reject(new Error('id not supplied'))
-      const group = await models.Group.findOne({
+      const group = await this.models.Group.findOne({
         where: { id },
         include: [ { all: true, nested: true } ]
       })
@@ -29,7 +34,7 @@ class UserManagerDB {
 
   async getGroups (callback) {
     try {
-      const groups = await models.Group.findAll({
+      const groups = await this.models.Group.findAll({
         include: [ { all: true, nested: true } ]
       })
       return Promise.resolve(groups).asCallback(callback)
@@ -65,7 +70,7 @@ class UserManagerDB {
     try {
       if (!user) return Promise.reject(new Error('data not supplied'))
       user.password = utils.encrypt(user.password)
-      const created = await models.User.create(user)
+      const created = await this.models.User.create(user)
       return Promise.resolve(created).asCallback(callback)
     } catch (e) {
       return Promise.reject(new Error(e)).asCallback(callback)
@@ -75,7 +80,7 @@ class UserManagerDB {
   async getUser (username, callback) {
     try {
       if (!username) return Promise.reject(new Error('username not supplied'))
-      const user = await models.User.findOne({
+      const user = await this.models.User.findOne({
         where: { username },
         include: [ { all: true, nested: true } ]
       })
@@ -88,7 +93,7 @@ class UserManagerDB {
 
   async getUsers (callback) {
     try {
-      const users = await models.User.findAll({
+      const users = await this.models.User.findAll({
         include: [ { all: true, nested: true } ]
       })
       return Promise.resolve(users).asCallback(callback)
@@ -100,7 +105,7 @@ class UserManagerDB {
   async getUsersByGroup (groupId, callback) {
     try {
       if (!groupId) return Promise.reject(new Error('groupId not supplied'))
-      const users = await models.User.findAll({
+      const users = await this.models.User.findAll({
         where: { groupId },
         include: [ { all: true, nested: true } ]
       })
@@ -149,8 +154,8 @@ class UserManagerDB {
 
   async setup (callback) {
     try {
-      await models.Group.sync()
-      await models.User.sync()
+      // await this.models.Group.sync()
+      await this.models.sequelize.sync()
       return Promise.resolve('Setup completed').asCallback(callback)
     } catch (e) {
       return Promise.reject(e).asCallback(callback)
@@ -159,8 +164,8 @@ class UserManagerDB {
 
   async drop (callback) {
     try {
-      await models.User.drop()
-      await models.Group.drop()
+      // await this.models.User.drop()
+      await this.models.sequelize.drop()
       return Promise.resolve('Drop completed').asCallback(callback)
     } catch (e) {
       return Promise.reject(e).asCallback(callback)

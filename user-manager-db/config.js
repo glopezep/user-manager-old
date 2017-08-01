@@ -1,11 +1,11 @@
 module.exports = {
-  dbName: process.env.DB_NAME || '[production_db_name]',
-  dbUser: process.env.DB_USER || '[production_db_user]',
-  dbPass: process.env.DB_PASS || '[production_db_pass]',
-  dbPort: process.env.DB_PORT || '[production_db_port]',
+  dbName: process.env.DB_NAME || 'pawa_users',
+  dbUser: process.env.DB_USER || 'root',
+  dbPass: process.env.DB_PASS || '',
+  dbPort: process.env.DB_PORT || '',
   extra: {
-    host: process.env.DB_HOST || '[production_db_host]',
-    dialect: process.env.DB_DIALECT || '[production_db_dialect]',
+    host: process.env.DB_HOST || 'localhost',
+    dialect: process.env.DB_DIALECT || 'mysql',
     pool: {
       max: 5,
       min: 0,
